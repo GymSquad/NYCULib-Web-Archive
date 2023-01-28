@@ -9,6 +9,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
+    "@hookform/resolvers": "^2.9.10",
     "@prisma/client": "^4.9.0",
     "axios": "^1.2.5",
     "next": "13.1.1",
