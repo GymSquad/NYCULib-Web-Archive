@@ -6,7 +6,9 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "fmt:check": "prettier -c --config prettier.config.cjs src",
+    "fmt:fix": "prettier -w --config prettier.config.cjs src"
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.1",
