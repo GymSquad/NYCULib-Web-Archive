@@ -13,10 +13,11 @@ model User {
     name  String?
 }
 
+// TODO: check if office is unique
 model Record {
     id         String   @id @default(cuid())
     office     String
     url        String
-    clickTimes Int
+    clickTimes Int      @default(0)
     updatedAt  DateTime @updatedAt
 }
