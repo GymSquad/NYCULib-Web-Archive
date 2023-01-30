@@ -1,0 +1,23 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id    String  @id @default(cuid())
+    email String  @unique
+    name  String?
+}
+
+// TODO: check if office is unique
+model Record {
+    id         String   @id @default(cuid())
+    office     String
+    url        String
+    clickTimes Int      @default(0)
+    updatedAt  DateTime @updatedAt
+}

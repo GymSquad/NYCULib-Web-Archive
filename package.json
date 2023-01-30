@@ -6,12 +6,19 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "fmt:check": "prettier -c --config prettier.config.cjs src",
+    "fmt:fix": "prettier -w --config prettier.config.cjs src"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
+    "@hookform/resolvers": "^2.9.10",
+    "@prisma/client": "^4.9.0",
+    "axios": "^1.2.5",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.42.1",
     "zod": "^3.18.0"
   },
   "devDependencies": {
@@ -27,6 +34,7 @@
     "postcss": "^8.4.14",
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
+    "prisma": "^4.9.0",
     "tailwindcss": "^3.2.0",
     "typescript": "^4.8.4"
   },
