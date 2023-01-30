@@ -1,9 +1,8 @@
 {
-  "name": "web-archive",
+  "name": "first-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
