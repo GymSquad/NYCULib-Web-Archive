@@ -28,7 +28,7 @@ const Home: NextPage<RecordPageProps> = ({ records }) => {
           <Collapse />
           <div className="min-w-0 flex-1">
             <ScrollBar />
-            <section className="mt-6 grid grid-cols-1 gap-x-12 px-16 md:grid-cols-2">
+            <section className="mt-6 grid grid-cols-1 gap-x-12 px-16 lg:grid-cols-2">
               {records.map((record) => (
                 <Card key={record.id} {...record}></Card>
               ))}
