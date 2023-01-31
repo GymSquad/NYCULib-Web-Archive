@@ -1,13 +1,13 @@
 import { Card } from "@/components/card";
 import { Collapse } from "@/components/collapse";
 import { ScrollBar } from "@/components/scroll";
-import { getRecords } from "@/services/record";
-import { type ApiRecord } from "@/types/record";
+import { prisma } from "@/server/db";
+import { type Record } from "@prisma/client";
 import { type GetStaticProps, type NextPage } from "next";
 import Head from "next/head";
 
 type RecordPageProps = {
-  records: ApiRecord[];
+  records: Record[];
 };
 
 const Home: NextPage<RecordPageProps> = ({ records }) => {
@@ -44,7 +44,7 @@ const Home: NextPage<RecordPageProps> = ({ records }) => {
 };
 
 export const getStaticProps: GetStaticProps<RecordPageProps> = async () => {
-  const records = await getRecords();
+  const records = await prisma.record.findMany();
 
   return {
     props: {
