@@ -1,6 +1,6 @@
-import { type Record } from "@prisma/client";
+import { type ApiRecord } from "@/types/record";
 
-type CardProps = Omit<Record, "id">;
+type CardProps = Omit<ApiRecord, "id">;
 
 export const Card = ({ office, url, updatedAt, clickTimes }: CardProps) => {
   return (
@@ -13,7 +13,7 @@ export const Card = ({ office, url, updatedAt, clickTimes }: CardProps) => {
             {url}
           </a>
         </li>
-        <li>最後更新｜{updatedAt.toISOString().slice(0, 10)}</li>
+        <li>最後更新｜{updatedAt.slice(0, 10)}</li>
         <li>點擊次數｜{clickTimes}</li>
       </ul>
     </div>

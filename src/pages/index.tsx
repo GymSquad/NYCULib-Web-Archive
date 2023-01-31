@@ -2,12 +2,12 @@ import { Card } from "@/components/card";
 import { Collapse } from "@/components/collapse";
 import { ScrollBar } from "@/components/scroll";
 import { prisma } from "@/server/db";
-import { type Record } from "@prisma/client";
+import { type ApiRecord } from "@/types/record";
 import { type GetStaticProps, type NextPage } from "next";
 import Head from "next/head";
 
 type RecordPageProps = {
-  records: Record[];
+  records: ApiRecord[];
 };
 
 const Home: NextPage<RecordPageProps> = ({ records }) => {
@@ -48,9 +48,12 @@ export const getStaticProps: GetStaticProps<RecordPageProps> = async () => {
 
   return {
     props: {
-      records,
+      records: records.map((record) => ({
+        ...record,
+        updatedAt: record.updatedAt.toISOString(),
+      })),
     },
-    revalidate: 3600,
+    revalidate: 10,
   };
 };
 
