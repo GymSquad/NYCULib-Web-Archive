@@ -1,27 +1,7 @@
+import { places } from "@/data/mock";
 import Link from "next/link";
 import { useRef, useState, type FC } from "react";
 import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
-
-interface Place {
-  // type of the places to be selected
-  name: string;
-  chosen: boolean;
-}
-
-const places: Place[] = [
-  // list of places to be selected
-  { name: "校長室", chosen: false },
-  { name: "教務處", chosen: false },
-  { name: "總務處", chosen: false },
-  { name: "人事室", chosen: false },
-  { name: "會計室", chosen: false },
-  { name: "體育室", chosen: false },
-  { name: "軍訓室", chosen: false },
-  { name: "圖書館", chosen: false },
-  { name: "學生事務處", chosen: false },
-  { name: "研發處", chosen: false },
-  { name: "國際事務處", chosen: false },
-];
 
 export const ScrollBar: FC = () => {
   const sliderRef = useRef<HTMLInputElement>(null);
