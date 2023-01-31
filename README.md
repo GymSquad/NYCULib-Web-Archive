@@ -2,7 +2,8 @@
 
 National Yang Ming Chiao Tung University Web Archiving System
 
-![Logo](https://www.nycu.edu.tw/wp-content/uploads/2021/02/210204-NYCU.png)
+
+[![Logo](https://www.nycu.edu.tw/wp-content/uploads/2021/02/210204-NYCU.png)](https://www.nycu.edu.tw/)
 
 <p align="center">
 <a aria-label="Next logo" href="https://nextjs.org">
@@ -36,8 +37,59 @@ Install dependencies
   npm ci
 ```
 
-Start the server
+Create database container
+
+```bash
+  docker-compose up -d
+```
+
+Push the schema to the database
+
+```bash
+  npx prisma db push
+```
+
+Start the server 🎉 
 
 ```bash
   npm run dev
+```
+
+## Contributing
+
+### Commit
+
+We recommend you use emoji to maintain consistency
+
+You can refer to this:
+> [Gitmoji](https://gitmoji.dev/)
+
+### Push
+
+Check if there is no linting error and format error in advance
+
+## Tools
+
+Explore the data in **Prisma Studio**
+
+```bash
+  npx prisma studio
+```
+
+Run ESLint on the files in `src`
+
+```bash
+  npm run lint
+```
+
+Check if the files in `src` are formatted
+
+```bash
+  npm run fmt:check
+```
+
+Fix format over the files in `src` (Beware!)
+
+```bash
+  npm run fmt:fix
 ```
