@@ -1,2 +1,5 @@
 {
-}
+    "tailwindCSS.experimental.classRegex": [
+      "(?:enter|leave)(?:From|To)?=\\s*(?:\"|')([^(?:\"|')]*)"
+    ]
+  }
