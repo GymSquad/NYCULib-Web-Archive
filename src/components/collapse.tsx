@@ -1,23 +1,7 @@
+import { Transition } from "@headlessui/react";
 import { useState, type FC } from "react";
 import { BsChevronCompactDown } from "react-icons/bs";
-
-const CreateList: FC = () => {
-  const searchResult = ["總務處", "教務處", "系辦"];
-  return (
-    <menu className="relative">
-      <div className="absolute mt-2 flex flex-col bg-ar-collapse/75 py-4 text-white">
-        {searchResult.map((r) => (
-          <div
-            key={r}
-            className="flex h-10 w-36 items-center justify-center p-4 text-center hover:bg-ar-collapse"
-          >
-            {r}
-          </div>
-        ))}
-      </div>
-    </menu>
-  );
-};
+import { CollapseList } from "./collapse-list";
 
 export const Collapse: FC = () => {
   const [show, setShow] = useState(false);
@@ -37,14 +21,17 @@ export const Collapse: FC = () => {
           <BsChevronCompactDown className="absolute mt-1 translate-x-[-50%]" />
         </div>
       </button>
-
-      <div className={show ? "mt-2" : "hidden"}>
-        <menu>
-          <div>
-            <CreateList />
-          </div>
-        </menu>
-      </div>
+      <Transition
+        show={show}
+        enter="transition-opacity duration-200"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-200"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <CollapseList />
+      </Transition>
     </div>
   );
 };
