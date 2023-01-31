@@ -44,11 +44,11 @@ const Home: NextPage<RecordPageProps> = ({ records }) => {
 };
 
 export const getStaticProps: GetStaticProps<RecordPageProps> = async () => {
-  const records = await prisma.record.findMany();
+  const records = await prisma.record.findMany().catch(console.error);
 
   return {
     props: {
-      records: records.map((record) => ({
+      records: (records || []).map((record) => ({
         ...record,
         updatedAt: record.updatedAt.toISOString(),
       })),

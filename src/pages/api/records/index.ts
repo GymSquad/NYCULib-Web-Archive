@@ -23,7 +23,7 @@ const postSchema = z.object({
 
 const getRecord = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const records = await prisma.record.findMany();
+    const records = await prisma.record.findMany().catch(console.error);
     res.status(200).send(records);
   } catch {
     res.status(500).send("Internal Error");
@@ -37,12 +37,14 @@ const createRecord = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
   const { office, url } = parsedReq.data.body;
-  const createdRecord = await prisma.record.create({
-    data: {
-      office,
-      url,
-    },
-  });
+  const createdRecord = await prisma.record
+    .create({
+      data: {
+        office,
+        url,
+      },
+    })
+    .catch(console.error);
   res.status(201).send(createdRecord);
 };
 
