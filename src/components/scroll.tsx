@@ -1,21 +1,19 @@
-import { places } from "@/data/mock";
+import { type Office } from "@prisma/client";
 import Link from "next/link";
-import { useRef, useState, type FC } from "react";
+import { useRef, type FC } from "react";
 import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
 
-export const ScrollBar: FC = () => {
+type scrollBarProps = {
+  offices: Office[];
+  activeId: string;
+};
+
+export const ScrollBar: FC<scrollBarProps> = (props) => {
   const sliderRef = useRef<HTMLInputElement>(null);
   const slide = (offset: number) => {
     // for the buttons
     if (!sliderRef.current) return;
     sliderRef.current.scrollLeft += offset;
-  };
-
-  const [chosenIndex, setChosenIndex] = useState(0);
-
-  const changeColor = (ind: number) => {
-    // change font color on click
-    setChosenIndex(ind);
   };
 
   return (
@@ -30,14 +28,15 @@ export const ScrollBar: FC = () => {
           ref={sliderRef}
           className="flex items-center gap-14 overflow-x-scroll scroll-smooth whitespace-nowrap font-serif font-bold scrollbar-hide"
         >
-          {places.map((place, ind) => (
+          {props.offices.map((office) => (
             <Link
-              className={ind === chosenIndex ? "text-ar-principal" : ""}
-              href="/"
-              key={place.name}
-              onClick={() => changeColor(ind)}
+              className={
+                office.id === props.activeId ? "text-ar-principal" : ""
+              }
+              href={`/office/${office.id}`}
+              key={office.id}
             >
-              {place.name}
+              {office.name}
             </Link>
           ))}
         </div>
