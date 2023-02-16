@@ -1,24 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider          = "postgresql"
-    url               = env("DATABASE_URL")
-    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model User {
-    id    String  @id @default(cuid())
-    email String  @unique
-    name  String?
+model Category {
+  id         String       @id @default(cuid())
+  name       String       @unique
+  department Department[]
+
+  @@index([name])
 }
 
-// TODO: check if office is unique
-model Record {
-    id         String   @id @default(cuid())
-    office     String
-    url        String
-    clickTimes Int      @default(0)
-    updatedAt  DateTime @updatedAt
+model Department {
+  id         String   @id @default(cuid())
+  name       String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+  office     Office[]
+
+  @@unique([name, categoryId])
+  @@index([name])
+}
+
+model Office {
+  id   String @id @default(cuid())
+  name String
+
+  department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+
+  website Website[]
+
+  @@unique([name, departmentId])
+  @@index([name])
+}
+
+model Website {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  viewCount Int      @default(0)
+  updatedAt DateTime @updatedAt
+
+  office   Office @relation(fields: [officeId], references: [id])
+  officeId String
 }
