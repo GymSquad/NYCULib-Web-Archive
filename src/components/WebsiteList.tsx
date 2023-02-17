@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import { type CardProps } from "../types/props";
-import { Card } from "./card";
+import { Card } from "./Card";
 
 export const WebsiteList: FC<{ websites: CardProps[] }> = ({ websites }) => {
   return (

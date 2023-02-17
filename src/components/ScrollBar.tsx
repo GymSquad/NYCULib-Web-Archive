@@ -3,12 +3,12 @@ import Link from "next/link";
 import { useRef, type FC } from "react";
 import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
 
-type scrollBarProps = {
+type ScrollBarProps = {
   offices: Office[];
   activeId: string;
 };
 
-export const ScrollBar: FC<scrollBarProps> = (props) => {
+export const ScrollBar: FC<ScrollBarProps> = (props) => {
   const sliderRef = useRef<HTMLInputElement>(null);
   const slide = (offset: number) => {
     // for the buttons
