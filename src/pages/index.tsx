@@ -1,17 +1,7 @@
-import { Card } from "@/components/card";
-import { Collapse } from "@/components/collapse";
-import { ScrollBar } from "@/components/scroll";
-import { prisma } from "@/server/db";
-import { type ApiRecord } from "@/types/record";
-import { type GetStaticProps, type NextPage } from "next";
+import { type NextPage } from "next";
 import Head from "next/head";
 
-type RecordPageProps = {
-  records: ApiRecord[];
-};
-
-const Home: NextPage<RecordPageProps> = ({ records }) => {
-  console.log(records);
+const Home: NextPage = () => {
   return (
     <>
       <Head>
@@ -24,37 +14,10 @@ const Home: NextPage<RecordPageProps> = ({ records }) => {
         <h1 className="mb-10 py-3 px-4 text-xl">
           National Yang Ming Chiao Tung University Web Archiving System
         </h1>
-        <div className="flex max-w-full gap-3">
-          <Collapse />
-          <div className="min-w-0 flex-1">
-            <ScrollBar />
-            <section className="mt-6 grid grid-cols-1 gap-x-12 px-16 lg:grid-cols-2">
-              {records.map((record) => (
-                <Card key={record.id} {...record}></Card>
-              ))}
-            </section>
-          </div>
-          <div className="px-10">
-            <Collapse />
-          </div>
-        </div>
+        <div className="flex max-w-full gap-3"></div>
       </main>
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps<RecordPageProps> = async () => {
-  const records = await prisma.record.findMany().catch(console.error);
-
-  return {
-    props: {
-      records: (records || []).map((record) => ({
-        ...record,
-        updatedAt: record.updatedAt.toISOString(),
-      })),
-    },
-    revalidate: 10,
-  };
 };
 
 export default Home;
