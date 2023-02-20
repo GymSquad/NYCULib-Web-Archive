@@ -1,9 +1,14 @@
 import { Transition } from "@headlessui/react";
-import { useState, type FC } from "react";
+import { useState, type FC, type PropsWithChildren } from "react";
 import { BsChevronCompactDown } from "react-icons/bs";
-import { CollapseList } from "./collapse-list";
+import { CollapseList } from "./CollapseList";
 
-export const Collapse: FC = () => {
+export type CollapseProps = PropsWithChildren<{
+  items: { id: string; name: string; urlId: string | null }[];
+  activeId: string;
+}>;
+
+export const Collapse: FC<CollapseProps> = ({ children, items, activeId }) => {
   const [show, setShow] = useState(false);
   function toggle() {
     setShow((prev) => !prev);
@@ -15,7 +20,7 @@ export const Collapse: FC = () => {
         onClick={toggle}
         className="flex w-36 select-none flex-col items-center rounded-sm p-2"
       >
-        所有行政單位
+        {children}
         <div className="relative">
           <BsChevronCompactDown className="absolute translate-x-[-50%]" />
           <BsChevronCompactDown className="absolute mt-1 translate-x-[-50%]" />
@@ -30,7 +35,7 @@ export const Collapse: FC = () => {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <CollapseList />
+        <CollapseList items={items} activeId={activeId} />
       </Transition>
     </div>
   );
