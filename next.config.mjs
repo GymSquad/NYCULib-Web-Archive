@@ -9,9 +9,18 @@
 const config = {
   reactStrictMode: true,
   swcMinify: true,
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
+  // i18n: {
+  //   locales: ["en"],
+  //   defaultLocale: "en",
+  // },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/office/cle5g1lqo0070s19pq40v9959",
+        permanent: true,
+      },
+    ];
   },
 };
 export default config;
