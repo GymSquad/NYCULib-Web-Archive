@@ -4,7 +4,7 @@ import { BsChevronCompactDown } from "react-icons/bs";
 import { CollapseList } from "./CollapseList";
 
 export type CollapseProps = PropsWithChildren<{
-  items: { id: string; name: string; urlId: string | undefined }[];
+  items: { id: string; name: string; urlId: string | null }[];
   activeId: string;
 }>;
 

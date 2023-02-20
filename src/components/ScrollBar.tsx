@@ -1,10 +1,9 @@
-import { type Office } from "@prisma/client";
 import Link from "next/link";
 import { useRef, type FC } from "react";
 import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
 
 type ScrollBarProps = {
-  offices: Office[];
+  offices: { id: string; name: string }[];
   activeId: string;
 };
 

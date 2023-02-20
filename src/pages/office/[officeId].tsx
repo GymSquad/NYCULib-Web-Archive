@@ -1,17 +1,28 @@
 import { Collapse, ScrollBar, WebsiteList } from "@/components";
 import { prisma } from "@/server/db";
-import { type CardProps } from "@/types/props";
+import {
+  getCategoryId,
+  getCategoryInfo,
+  getDepartmentId,
+  getDepartmentInfo,
+  getOfficesInfo,
+  getWebsiteInfo,
+} from "@/server/query";
+import { NotFound } from "@/services/global";
+import { type PageProps } from "@/types/props";
 import { type Office } from "@prisma/client";
 import { type GetStaticPaths, type GetStaticProps, type NextPage } from "next";
 import Head from "next/head";
 
-type StaticProps = {
-  websites: CardProps[];
-  offices: Office[];
-  officeId: string;
-};
-
-const Office: NextPage<StaticProps> = (props) => {
+const Office: NextPage<PageProps> = ({
+  websites,
+  offices,
+  departments,
+  categories,
+  officeId,
+  departmentId,
+  categoryId,
+}) => {
   return (
     <>
       <Head>
@@ -25,13 +36,17 @@ const Office: NextPage<StaticProps> = (props) => {
           National Yang Ming Chiao Tung University Web Archiving System
         </h1>
         <div className="flex max-w-full gap-3">
-          <Collapse />
+          <Collapse items={categories} activeId={categoryId}>
+            Category
+          </Collapse>
           <div className="min-w-0 flex-1">
-            <ScrollBar offices={props.offices} activeId={props.officeId} />
-            <WebsiteList websites={props.websites} />
+            <ScrollBar offices={offices} activeId={officeId} />
+            <WebsiteList websites={websites} />
           </div>
           <div className="px-10">
-            <Collapse />
+            <Collapse items={departments} activeId={departmentId}>
+              Department
+            </Collapse>
           </div>
         </div>
       </main>
@@ -41,7 +56,6 @@ const Office: NextPage<StaticProps> = (props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const officeList = await prisma.office.findMany();
-  // console.log(officeList);
   return {
     paths: officeList.map((office) => {
       return {
@@ -52,39 +66,45 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<StaticProps> = async (context) => {
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
   const officeId = context.params?.officeId as string;
-  const websites = await prisma.website.findMany({
-    where: {
-      officeId,
-    },
-    select: {
-      name: true,
-      url: true,
-      updatedAt: true,
-      viewCount: true,
-    },
-  });
 
-  const offices = await prisma.office.findMany({
-    where: {
-      department: {
-        category: {
-          name: "交大相關",
-        },
-        name: "行政單位",
-      },
-    },
-  });
+  const categoryId = await getCategoryId(officeId).catch(console.error);
+
+  if (!categoryId) {
+    return NotFound;
+  }
+
+  const departmentId = await getDepartmentId(officeId).catch(console.error);
+
+  if (!departmentId) {
+    return NotFound;
+  }
+
+  const infoRes = await Promise.all([
+    getCategoryInfo(),
+    getDepartmentInfo(categoryId),
+    getOfficesInfo(departmentId),
+    getWebsiteInfo(officeId),
+  ]).catch(console.error);
+
+  if (!infoRes) {
+    return NotFound;
+  }
+
+  const [categories, departments, offices, websites] = infoRes;
 
   return {
-    // Passed to the page component as props
     props: {
       websites: websites.map((web) => {
         return { ...web, updatedAt: web.updatedAt.toISOString() };
       }),
       offices,
+      departments,
+      categories,
       officeId,
+      departmentId,
+      categoryId,
     },
     revalidate: 1000,
   };
