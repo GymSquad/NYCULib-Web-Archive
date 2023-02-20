@@ -106,7 +106,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
       departmentId,
       categoryId,
     },
-    revalidate: 1000,
+    revalidate: 120,
   };
 };
 
