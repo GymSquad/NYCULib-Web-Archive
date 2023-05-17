@@ -17,7 +17,7 @@ const config = {
     return [
       {
         source: "/",
-        destination: "/office/cle5g1lqo0070s19pq40v9959",
+        destination: "/office/clhjj1voh000tgbgng77i1wp5",
         permanent: true,
       },
     ];

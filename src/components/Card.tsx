@@ -1,7 +1,7 @@
 import { type FC } from "react";
 import { type CardProps } from "../types/props";
 
-export const Card: FC<CardProps> = ({ name, url, updatedAt, viewCount }) => {
+export const Card: FC<CardProps> = ({ name, url }) => {
   return (
     <div className="border-b-[1.5px] border-gray-300 py-2 px-4">
       <div className="py-1">{name}</div>
@@ -19,8 +19,6 @@ export const Card: FC<CardProps> = ({ name, url, updatedAt, viewCount }) => {
             </a>
           </div>
         </li>
-        <li>最後更新｜{updatedAt.slice(0, 10)}</li>
-        <li>點擊次數｜{viewCount}</li>
       </ul>
     </div>
   );

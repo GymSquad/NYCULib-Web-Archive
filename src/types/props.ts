@@ -1,8 +1,6 @@
 import { type Website } from "@prisma/client";
 
-export type CardProps = Omit<Website, "officeId" | "updatedAt"> & {
-  updatedAt: string;
-};
+export type CardProps = Omit<Website, "officeId">;
 
 export type PageProps = {
   websites: CardProps[];

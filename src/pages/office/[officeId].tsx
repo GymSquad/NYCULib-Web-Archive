@@ -96,9 +96,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
 
   return {
     props: {
-      websites: websites.map((web) => {
-        return { ...web, updatedAt: web.updatedAt.toISOString() };
-      }),
+      websites,
       offices,
       departments,
       categories,
