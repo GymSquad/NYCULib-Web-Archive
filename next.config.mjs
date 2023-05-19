@@ -13,14 +13,5 @@ const config = {
   //   locales: ["en"],
   //   defaultLocale: "en",
   // },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/office/clhjj1voh000tgbgng77i1wp5",
-        permanent: true,
-      },
-    ];
-  },
 };
 export default config;
