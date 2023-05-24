@@ -2,10 +2,13 @@ import { ScrollBar, WebsiteList } from "@/components";
 import type { Campus } from "@/components/DepartmentMenu";
 import { DepartmentMenu } from "@/components/DepartmentMenu";
 import { prisma } from "@/server/db";
-import { NotFound } from "@/services/global";
+import { NotFound, REVALIDATE_IN_SECONDS } from "@/services/global";
 import type { Website } from "@prisma/client";
+import { atom, useSetAtom } from "jotai";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
+import NYCULogo from "/public/NYCU_logo.png";
 
 type CurrentState = {
   departmentId: string;
@@ -19,12 +22,15 @@ type OfficePageProps = {
   websites: Website[];
 };
 
+export const officeAtom = atom<string | null>(null);
+
 const OfficePage: NextPage<OfficePageProps> = ({
   currentStates,
   menuInfo,
   offices,
   websites,
 }) => {
+  useSetAtom(officeAtom)(currentStates.officeId);
   return (
     <>
       <Head>
@@ -33,10 +39,15 @@ const OfficePage: NextPage<OfficePageProps> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto mt-12 font-serif">
-        <h1 className="text-5xl font-black">國立陽明交通大學網站典藏庫</h1>
-        <h1 className="mb-10 py-3 px-4 text-xl">
-          National Yang Ming Chiao Tung University Web Archiving System
-        </h1>
+        <section className="mb-10 flex items-center gap-4">
+          <Image className="h-24 w-24" src={NYCULogo} alt="NYCU Logo" />
+          <div>
+            <h1 className="text-5xl font-black">國立陽明交通大學網站典藏庫</h1>
+            <h2 className="pt-3 px-4 text-xl">
+              National Yang Ming Chiao Tung University Web Archiving System
+            </h2>
+          </div>
+        </section>
         <div className="flex max-w-full gap-3">
           <DepartmentMenu
             campuses={menuInfo}
@@ -62,7 +73,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
           params: { officeId: office.id },
         };
       }),
-      fallback: true,
+      fallback: "blocking",
     };
   } catch (error) {
     console.error(error);
@@ -154,7 +165,7 @@ export const getStaticProps: GetStaticProps<OfficePageProps> = async (
       offices: offices,
       websites: websites[0]?.website || [],
     },
-    revalidate: 120,
+    revalidate: REVALIDATE_IN_SECONDS,
   };
 };
 
