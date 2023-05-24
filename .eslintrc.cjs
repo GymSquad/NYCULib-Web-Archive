@@ -9,6 +9,7 @@ const config = {
   rules: {
     "@typescript-eslint/consistent-type-imports": "warn",
   },
+  ignorePatterns: ["node_modules", ".next", "out", "ecosystem.config.js"],
 };
 
 module.exports = config;
