@@ -1,0 +1,17 @@
+{
+  "apps": [
+    {
+      "name": "NYCULib-Web-Archive",
+      "script": "node_modules/next/dist/bin/next",
+      "args": "start",
+      "exec_mode": "cluster",
+      "instances": 2,
+      "max_memory_restart": "250M",
+      "cwd": "./",
+      "env_production": {
+        "NODE_ENV": "production",
+        "PORT": 3000
+      }
+    }
+  ]
+}
