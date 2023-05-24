@@ -26,7 +26,7 @@ export const ScrollBar: FC<ScrollBarProps> = (props) => {
         />
         <div
           ref={sliderRef}
-          className="flex items-center gap-14 overflow-x-scroll scroll-smooth whitespace-nowrap font-serif font-bold scrollbar-hide"
+          className="flex items-center gap-14 overflow-x-scroll scroll-smooth whitespace-nowrap px-2 font-serif font-bold scrollbar-hide"
         >
           {props.offices.map((office) => (
             <Link
