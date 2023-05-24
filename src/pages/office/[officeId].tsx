@@ -43,7 +43,7 @@ const OfficePage: NextPage<OfficePageProps> = ({
           <Image className="h-24 w-24" src={NYCULogo} alt="NYCU Logo" />
           <div>
             <h1 className="text-5xl font-black">國立陽明交通大學網站典藏庫</h1>
-            <h2 className="pt-3 px-4 text-xl">
+            <h2 className="px-4 pt-3 text-xl">
               National Yang Ming Chiao Tung University Web Archiving System
             </h2>
           </div>
