@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Link from "next/link";
 import { useRef, type FC } from "react";
 import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
@@ -19,19 +20,19 @@ export const ScrollBar: FC<ScrollBarProps> = (props) => {
     <>
       <div className="relative flex flex-1 items-center p-2">
         <VscChevronLeft
-          className="cursor-pointer opacity-30 hover:opacity-70"
+          className="flex-shrink-0 cursor-pointer border-r border-gray-700 opacity-30 hover:opacity-70 "
           onClick={() => slide(-500)}
           size={30}
         />
         <div
           ref={sliderRef}
-          className="flex items-center gap-14 overflow-x-scroll scroll-smooth whitespace-nowrap font-serif font-bold scrollbar-hide"
+          className="flex items-center gap-14 overflow-x-scroll scroll-smooth whitespace-nowrap px-2 font-serif font-bold scrollbar-hide"
         >
           {props.offices.map((office) => (
             <Link
-              className={
-                office.id === props.activeId ? "text-ar-principal" : ""
-              }
+              className={classNames(
+                office.id === props.activeId && "text-ar-principal"
+              )}
               href={`/office/${office.id}`}
               key={office.id}
             >
@@ -40,7 +41,7 @@ export const ScrollBar: FC<ScrollBarProps> = (props) => {
           ))}
         </div>
         <VscChevronRight
-          className="cursor-pointer opacity-30 hover:opacity-70"
+          className="flex-shrink-0 cursor-pointer border-l border-gray-700 opacity-30 hover:opacity-70"
           onClick={() => slide(500)}
           size={30}
         />

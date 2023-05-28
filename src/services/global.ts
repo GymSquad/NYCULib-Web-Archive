@@ -1,4 +1,6 @@
+export const REVALIDATE_IN_SECONDS = 120;
+
 export const NotFound = {
   notFound: true,
-  revalidate: 10,
+  revalidate: REVALIDATE_IN_SECONDS,
 } as const;
