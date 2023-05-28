@@ -2,7 +2,6 @@
 
 National Yang Ming Chiao Tung University Web Archiving System
 
-
 [![Logo](https://www.nycu.edu.tw/wp-content/uploads/2021/02/210204-NYCU.png)](https://www.nycu.edu.tw/)
 
 <p align="center">
@@ -17,51 +16,57 @@ National Yang Ming Chiao Tung University Web Archiving System
 </a>
 </p>
 
-## Run Locally
+## Boot up
 
-Clone the project
+You can inspect what services are running
 
 ```bash
-  git clone https://github.com/GymSquad/NYCULib-Web-Archive.git
+  docker compose ps
 ```
 
-Go to the project directory
+Boot up database container
 
 ```bash
-  cd NYCULib-Web-Archive
+  cd /home/webarchive/web/NYCULib-Web-Archive
+  docker compose up -d
 ```
 
-Install dependencies
+Boot up nginx container
 
 ```bash
-  npm ci
+  cd /home/webarchive/web/webserver
+  docker compose up -d
 ```
 
-Create database container
+Boot up next.js
 
 ```bash
-  docker-compose up -d
-```
-
-Push the schema to the database
-
-```bash
-  npx prisma db push
-```
-
-Start the server 🎉 
-
-```bash
-  npm run dev
+  cd /home/webarchive/web/NYCULib-Web-Archive
+  pm2 start pm2.json --env production
 ```
 
 ## Contributing
+
+### Notice
+
+If you modify the content in the next.js project, you need to run the following command to build the project and restart the next.js server as the above step
+
+```bash
+  pnpm run build
+```
+
+If you modify the database schema, you need to run the following command to generate the Prisma client
+
+```bash
+  pnpm prisma generate
+```
 
 ### Commit
 
 We recommend you use emoji to maintain consistency
 
 You can refer to this:
+
 > [Gitmoji](https://gitmoji.dev/)
 
 ### Push
