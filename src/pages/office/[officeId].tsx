@@ -40,7 +40,7 @@ const OfficePage: NextPage<OfficePageProps> = ({
       </Head>
       <main className="container mx-auto mt-12 font-serif">
         <section className="mb-10 flex items-center gap-4">
-          <Image className="h-24 w-24" src={NYCULogo} alt="NYCU Logo" />
+          <Image width={88} height={88} src={NYCULogo} alt="NYCU Logo" />
           <div>
             <h1 className="text-5xl font-black">國立陽明交通大學網站典藏庫</h1>
             <h2 className="px-4 pt-3 text-xl">
