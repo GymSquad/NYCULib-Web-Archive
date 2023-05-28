@@ -52,13 +52,13 @@ Boot up next.js
 If you modify the content in the next.js project, you need to run the following command to build the project and restart the next.js server as the above step
 
 ```bash
-  pnpm run build
+  npm run build
 ```
 
 If you modify the database schema, you need to run the following command to generate the Prisma client
 
 ```bash
-  pnpm prisma generate
+  npm prisma generate
 ```
 
 ### Commit
