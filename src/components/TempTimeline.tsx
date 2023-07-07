@@ -17,7 +17,7 @@ export const ArchivedTimeline: FC<ArchivedTimelineProps> = ({
   activeDate,
 }) => {
   return (
-    <ol className="flex flex-auto flex-col items-center overflow-y-scroll pr-20 scrollbar-hide">
+    <ol className="flex flex-col items-center overflow-y-scroll pr-20 scrollbar-hide">
       <span className="h-2 w-2 flex-shrink-0 rounded-full bg-ar-collapse" />
       <span className="h-8 w-0.5 flex-shrink-0 bg-ar-collapse" />
 
@@ -47,6 +47,8 @@ export const ArchivedTimeline: FC<ArchivedTimelineProps> = ({
           </Link>
         </div>
       ))}
+      <span className="h-8 w-0.5 flex-shrink-0 bg-ar-collapse" />
+      <span className="h-2 w-2 flex-shrink-0 rounded-full bg-ar-collapse" />
     </ol>
   );
 };
