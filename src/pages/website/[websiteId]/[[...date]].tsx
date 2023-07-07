@@ -166,18 +166,20 @@ const WebsiteArchive: React.FC<WebsiteArchiveProps> = ({
   const history = useAtomValue(officeAtom);
   return (
     <div className="flex h-full flex-auto flex-col">
-      <div>
-        {/* FIXME: link */}
-        <section className="mb-6 flex items-center gap-2">
-          <Image src={NYCULogo} alt="NYCU Logo" width={48} height={48} />
-          <Link className="" href={history ? `/office/${history}` : "/"}>
-            <h1 className="text-2xl font-black">國立陽明交通大學網站典藏庫</h1>
-            <h2 className="text-md">
+      <section className="mb-6">
+        <Link
+          className="flex items-center gap-2"
+          href={history ? `/office/${history}` : "/"}
+        >
+          <Image src={NYCULogo} className="h-12 w-12" alt="NYCU Logo" />
+          <div className="flex flex-col">
+            <h4 className="text-2xl font-black">國立陽明交通大學網站典藏庫</h4>
+            <h5 className="text-md">
               National Yang Ming Chiao Tung University Web Archiving System
-            </h2>
-          </Link>
-        </section>
-      </div>
+            </h5>
+          </div>
+        </Link>
+      </section>
 
       <section className="flex flex-auto overflow-y-hidden pb-6">
         <div className="flex flex-col items-center justify-center overflow-y-hidden py-8">
