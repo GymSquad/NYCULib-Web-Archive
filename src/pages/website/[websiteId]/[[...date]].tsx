@@ -12,16 +12,26 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import path from "path";
 import { useEffect } from "react";
+import { FaLock } from "react-icons/fa";
 import { officeAtom } from "../../office/[officeId]";
 import NYCULogo from "/public/NYCU_logo.png";
 
-type Props = {
+type WebsiteProps = {
   websiteId: string;
   selectedDate: string | null;
   dates: string[];
+  websiteInfo: {
+    name: string;
+    url: string;
+  };
 };
 
-const Website: NextPage<Props> = ({ websiteId, selectedDate, dates }) => {
+const Website: NextPage<WebsiteProps> = ({
+  websiteId,
+  selectedDate,
+  dates,
+  websiteInfo,
+}) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -46,6 +56,7 @@ const Website: NextPage<Props> = ({ websiteId, selectedDate, dates }) => {
         times={times}
         frameUrl={frameUrl}
         activeDate={selectedDate ?? dates[0] ?? ""}
+        websiteInfo={websiteInfo}
       />
     </Layout>
   );
@@ -94,7 +105,7 @@ type UrlQuery = {
   date: string[];
 };
 
-export const getStaticProps: GetStaticProps<Props, UrlQuery> = async (
+export const getStaticProps: GetStaticProps<WebsiteProps, UrlQuery> = async (
   context
 ) => {
   if (!context.params) {
@@ -103,6 +114,15 @@ export const getStaticProps: GetStaticProps<Props, UrlQuery> = async (
 
   const { websiteId, date } = context.params;
 
+  const websiteInfo = await prisma.website.findUnique({
+    where: { id: websiteId },
+    select: { name: true, url: true },
+  });
+
+  if (!websiteInfo) {
+    return NotFound;
+  }
+
   const dates = await readArchivedDates(websiteId);
 
   return {
@@ -110,6 +130,7 @@ export const getStaticProps: GetStaticProps<Props, UrlQuery> = async (
       websiteId,
       selectedDate: date?.[0] ?? null,
       dates,
+      websiteInfo,
     },
     revalidate: REVALIDATE_IN_SECONDS,
   };
@@ -130,12 +151,17 @@ type WebsiteArchiveProps = {
   }[];
   activeDate: string;
   frameUrl: string;
+  websiteInfo: {
+    name: string;
+    url: string;
+  };
 };
 
 const WebsiteArchive: React.FC<WebsiteArchiveProps> = ({
   times,
   activeDate,
   frameUrl,
+  websiteInfo,
 }) => {
   const history = useAtomValue(officeAtom);
   return (
@@ -153,14 +179,21 @@ const WebsiteArchive: React.FC<WebsiteArchiveProps> = ({
         </section>
       </div>
 
-      <section className="flex flex-auto overflow-y-hidden">
-        <div className="flex flex-col overflow-y-hidden pb-6">
+      <section className="flex flex-auto overflow-y-hidden pb-6">
+        <div className="flex flex-col items-center justify-center overflow-y-hidden py-8">
           <ArchivedTimeline times={times} activeDate={activeDate} />
         </div>
 
-        <div className="flex-auto px-8 pb-4">
+        <div className="ml-8 mb-4 flex flex-auto flex-col rounded-xl shadow-lg">
+          <div className="flex h-14 w-full items-center gap-4 rounded-t-xl bg-gray-200 px-8 py-2">
+            <p className="">{websiteInfo.name}</p>
+            <div className="flex h-full flex-auto items-center justify-center rounded-full bg-gray-300">
+              <FaLock className="mr-2 h-3 w-3 text-gray-400 opacity-60" />
+              <span className="text-sm text-gray-500">{websiteInfo.url}</span>
+            </div>
+          </div>
           <iframe
-            className="h-full w-full flex-auto rounded-md"
+            className="h-full w-full flex-auto rounded-b-xl"
             src={`${frameUrl}/${activeDate}`}
           />
         </div>
