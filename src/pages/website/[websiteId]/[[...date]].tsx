@@ -181,17 +181,19 @@ const WebsiteArchive: React.FC<WebsiteArchiveProps> = ({
         </Link>
       </section>
 
-      <section className="flex flex-auto overflow-y-hidden pb-6">
-        <div className="flex flex-col items-center justify-center overflow-y-hidden py-8">
+      <section className="flex w-full flex-auto overflow-y-hidden pb-6">
+        <div className="flex flex-shrink-0 flex-col items-center justify-center overflow-y-hidden py-8">
           <ArchivedTimeline times={times} activeDate={activeDate} />
         </div>
 
-        <div className="ml-8 mb-4 flex flex-auto flex-col rounded-xl shadow-lg">
+        <div className="ml-8 mb-4 flex min-w-0 flex-auto flex-col rounded-xl shadow-lg">
           <div className="flex h-14 w-full items-center gap-4 rounded-t-xl bg-gray-200 px-8 py-2">
-            <p className="">{websiteInfo.name}</p>
-            <div className="flex h-full flex-auto items-center justify-center rounded-full bg-gray-300">
-              <FaLock className="mr-2 h-3 w-3 text-gray-400 opacity-60" />
-              <span className="text-sm text-gray-500">{websiteInfo.url}</span>
+            <p className="whitespace-nowrap">{websiteInfo.name}</p>
+            <div className="flex h-full min-w-0 flex-auto items-center justify-center rounded-full bg-gray-300 px-4">
+              <FaLock className="mr-2 h-3 w-3 flex-shrink-0 text-gray-400 opacity-60" />
+              <span className="truncate text-sm text-gray-500">
+                {websiteInfo.url}
+              </span>
             </div>
           </div>
           <iframe
