@@ -44,7 +44,7 @@ const Website: NextPage<WebsiteProps> = ({
     return <NoArchive />;
   }
 
-  const frameUrl = `http://webarchive.lib.nycu.edu.tw/archive/${websiteId}`;
+  const frameUrl = `https://webarchive.lib.nycu.edu.tw/archive/${websiteId}`;
   const times = dates.map((date) => ({
     date,
     href: `/website/${websiteId}/${date}`,
