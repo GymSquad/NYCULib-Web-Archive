@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { FaLock } from "react-icons/fa";
 import { officeAtom } from "../../office/[officeId]";
 import NYCULogo from "/public/NYCU_logo.png";
+import { env } from "@/env/server.mjs";
 
 type WebsiteProps = {
   websiteId: string;
