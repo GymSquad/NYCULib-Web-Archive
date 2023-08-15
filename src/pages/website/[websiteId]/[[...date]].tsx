@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { FaLock } from "react-icons/fa";
 import { officeAtom } from "../../office/[officeId]";
 import NYCULogo from "/public/NYCU_logo.png";
+import { env } from "@/env/server.mjs";
 
 type WebsiteProps = {
   websiteId: string;
@@ -134,7 +135,7 @@ export const getStaticProps: GetStaticProps<WebsiteProps, UrlQuery> = async (
 
 const readArchivedDates = async (websiteId: string) => {
   try {
-    return await readdir(path.join("/mnt/webarchive/new-archive2", websiteId));
+    return await readdir(path.join(env.ARCHIVE_ROOT, websiteId));
   } catch (error) {
     return [];
   }
