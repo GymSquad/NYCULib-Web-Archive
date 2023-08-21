@@ -16,6 +16,8 @@ import { FaLock } from "react-icons/fa";
 import { officeAtom } from "../../office/[officeId]";
 import NYCULogo from "/public/NYCU_logo.png";
 import { env } from "@/env/server.mjs";
+import axios from "axios";
+import { getArchivedDates } from "@/services/getArchivedDates";
 
 type WebsiteProps = {
   websiteId: string;
@@ -124,7 +126,13 @@ export const getStaticProps: GetStaticProps<WebsiteProps, UrlQuery> = async (
     return NotFound;
   }
 
-  const dates = await readArchivedDates(websiteId);
+  let dates: string[] = [];
+
+  try {
+    dates = (await getArchivedDates(websiteId)).data;
+  } catch (error) {
+    return NotFound;
+  }
 
   return {
     props: {
@@ -135,14 +143,6 @@ export const getStaticProps: GetStaticProps<WebsiteProps, UrlQuery> = async (
     },
     revalidate: REVALIDATE_IN_SECONDS,
   };
-};
-
-const readArchivedDates = async (websiteId: string) => {
-  try {
-    return await readdir(path.join(env.ARCHIVE_ROOT, websiteId));
-  } catch (error) {
-    return [];
-  }
 };
 
 type WebsiteArchiveProps = {
@@ -187,7 +187,7 @@ const WebsiteArchive: React.FC<WebsiteArchiveProps> = ({
           <ArchivedTimeline times={times} activeDate={activeDate} />
         </div>
 
-        <div className="ml-8 mb-4 flex min-w-0 flex-auto flex-col rounded-xl shadow-lg">
+        <div className="mb-4 ml-8 flex min-w-0 flex-auto flex-col rounded-xl shadow-lg">
           <div className="flex h-14 w-full items-center gap-4 rounded-t-xl bg-gray-200 px-8 py-2">
             <p className="whitespace-nowrap">{websiteInfo.name}</p>
             <div className="flex h-full min-w-0 flex-auto items-center justify-center rounded-full bg-gray-300 px-4">
