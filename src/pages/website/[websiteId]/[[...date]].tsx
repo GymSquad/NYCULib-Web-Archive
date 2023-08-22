@@ -2,22 +2,20 @@ import { ArchivedTimeline } from "@/components/TempTimeline";
 import { env } from "@/env/server.mjs";
 import { Layout } from "@/layout/Layout";
 import { prisma } from "@/server/db";
+import { getArchivedDates } from "@/services/getArchivedDates";
 import { NotFound, REVALIDATE_IN_SECONDS } from "@/services/global";
-import { readdir } from "fs/promises";
+
 import { useAtomValue } from "jotai";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import path from "path";
 import { useEffect } from "react";
 import { FaLock } from "react-icons/fa";
+
 import { officeAtom } from "../../office/[officeId]";
 import NYCULogo from "/public/NYCU_logo.png";
-import { env } from "@/env/server.mjs";
-import axios from "axios";
-import { getArchivedDates } from "@/services/getArchivedDates";
 
 type WebsiteProps = {
   websiteId: string;
