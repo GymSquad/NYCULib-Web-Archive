@@ -1,18 +1,29 @@
-version: '3.9'
+version: "3.9"
 
 services:
   web-server:
+    container_name: nextjs_web
     restart: always
     build:
       context: .
       dockerfile: Dockerfile
       args:
         DATABASE_URL: ${DATABASE_URL:-postgres://app:app@localhost:5432/db}
-        ARCHIVE_ROOT: /archive
+        API_URL: ${API_URL:-http://localhost:8000}
+      extra_hosts:
+        - host.docker.internal:host-gateway
     working_dir: /app
-    environment:
-      DATABASE_URL: ${DATABASE_URL:-postgres://app:app@localhost:5432/db}
-      ARCHIVE_ROOT: /archive
+    env_file:
+      - .env.run.local
+    # environment:
+    #   DATABASE_URL: ${DATABASE_URL:-postgres://app:app@localhost:5432/db}
     volumes:
       - "/mnt/webarchive/new-archive2:/archive"
-    network_mode: host
+    ports:
+      - "3000:3000"
+    networks:
+      - webarchive-network
+
+networks:
+  webarchive-network:
+    external: true

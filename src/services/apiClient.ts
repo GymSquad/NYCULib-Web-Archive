@@ -1,6 +1,7 @@
+import { env } from "@/env/server.mjs";
 import axios from "axios";
 
-const baseURL = "http://localhost:8080/api";
+const baseURL = env.API_URL;
 
 export const apiClient = axios.create({
   baseURL: baseURL,
