@@ -27,6 +27,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.42.1",
     "react-icons": "^4.7.1",
+    "sharp": "^0.32.5",
     "tailwind-scrollbar-hide": "^1.1.7",
     "zod": "^3.18.0"
   },
