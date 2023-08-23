@@ -2,14 +2,23 @@ version: "3"
 
 services:
   db:
+    container_name: postgres_db
     image: postgres:15.2
     restart: always
+    env_file:
+      - .env.db.local
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-app}
       POSTGRES_USER: ${POSTGRES_USER:-app}
       POSTGRES_DB: ${POSTGRES_DB:-db}
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - 5433:5432
+      - 5432:5432
     volumes:
       - ./db_data:/var/lib/postgresql/data/pgdata
+    networks:
+      - webarchive-network
+
+networks:
+  webarchive-network:
+    external: true
