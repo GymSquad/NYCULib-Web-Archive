@@ -9,6 +9,7 @@ on:
 env:
   NODE_ENV: test
   DATABASE_URL: postgresql://app:app@localhost:5432/db
+  ARCHIVE_ROOT: /
 
 jobs:
   lint:
