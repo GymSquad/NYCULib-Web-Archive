@@ -58,6 +58,9 @@ export const getStaticPaths: GetStaticPaths<UrlQuery> = async () => {
   const promiseResults = await Promise.allSettled(
     websites.map(async ({ id: websiteId }) => {
       const dates = await readArchivedDates(websiteId);
+      console.error(`websiteId=${websiteId}`);
+      console.error(`dates=${dates}`);
+
       const datesWithUndefined = [...dates, undefined];
       return datesWithUndefined.map((date) => ({
         params: {
