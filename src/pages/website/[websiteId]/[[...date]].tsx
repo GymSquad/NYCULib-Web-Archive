@@ -1,4 +1,5 @@
 import { ArchivedTimeline } from "@/components/ArchivedTimeline";
+import { env } from "@/env/server.mjs";
 import { prisma } from "@/server/db";
 import { NotFound, REVALIDATE_IN_SECONDS } from "@/services/global";
 import { readdir } from "fs/promises";
@@ -110,7 +111,7 @@ export const getStaticProps: GetStaticProps<Props, UrlQuery> = async (
 
 const readArchivedDates = async (websiteId: string) => {
   try {
-    return await readdir(path.join("/mnt/webarchive/new-archive", websiteId));
+    return await readdir(path.join(env.ARCHIVE_ROOT, websiteId));
   } catch (error) {
     return [];
   }
